@@ -37,3 +37,8 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+
+bootJar {
+	  mainClassName = "com.buseni.calcappadmin.DemoApplication"
+}
