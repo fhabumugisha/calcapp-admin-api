@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,10 @@ public class UsersController {
         return userRepo.findById(id).orElseThrow(() -> new DocumentNotFoundException("Project not found"));
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") String id){
+         userRepo.deleteById(id);
+    }
     @GetMapping("/{id}/projects")
     public List<Project> findUserProjects(@PathVariable("id") ObjectId id){
         return projectRepo.findByUserId(id);
