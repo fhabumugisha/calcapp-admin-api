@@ -1,9 +1,12 @@
 package com.buseni.calcappadmin.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -26,7 +29,11 @@ public class User {
     private String id;
     private String email;
     private String password;    
+     @CreatedDate
+    private Date createdAt;
    
+   @LastModifiedDate
+    private Date updatedAt;
 
    public User(String id, String email, String password){
         this.id = id;
@@ -75,5 +82,30 @@ public class User {
        this.password = password;
    }
 
-  
+    /**
+    * @return the createdAt
+    */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+ 
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+ /**
+  * @return the updatedAt
+  */
+ public Date getUpdatedAt() {
+     return updatedAt;
+ }
+ 
+ /**
+  * @param updatedAt the updatedAt to set
+  */
+ public void setUpdatedAt(Date updatedAt) {
+     this.updatedAt = updatedAt;
+ }
 }
