@@ -1,5 +1,6 @@
 package com.buseni.calcappadmin;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.springframework.boot.SpringApplication;
@@ -12,11 +13,16 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootApplication
 @EnableMongoAuditing
+@Slf4j 
 public class DemoApplication {
 
 	public static void main(String[] args) {
+        log.info("Starting application with args {}", Arrays.toString(args));
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
