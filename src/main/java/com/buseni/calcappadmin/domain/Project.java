@@ -135,8 +135,8 @@ public void setUpdatedAt(Date updatedAt) {
 /**
  * @return the userId
  */
-public String getUserId() {
-    return userId.toHexString();
+public ObjectId getUserId() {
+    return userId;
 }
 
 /**

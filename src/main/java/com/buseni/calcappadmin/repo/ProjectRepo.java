@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface ProjectRepo extends MongoRepository<Project, String> {
 
-	List<Project> findByUserId(ObjectId id);
+	Page<Project> findByUserId(ObjectId id, Pageable pageable);
 
 	Page<Project> findByType(String type, Pageable pageable);
 

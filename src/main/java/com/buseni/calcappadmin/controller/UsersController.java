@@ -48,8 +48,8 @@ public class UsersController {
          userRepo.deleteById(id);
     }
     @GetMapping("/{id}/projects")
-    public List<Project> findUserProjects(@PathVariable("id") ObjectId id){
-        return projectRepo.findByUserId(id);
+    public Page<Project> findUserProjects(@PathVariable("id") ObjectId id, Pageable pageable){
+        return projectRepo.findByUserId(id, pageable);
     }
 
 

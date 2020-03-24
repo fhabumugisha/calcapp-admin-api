@@ -4,11 +4,13 @@ import com.buseni.calcappadmin.domain.DocumentNotFoundException;
 import com.buseni.calcappadmin.domain.Project;
 import com.buseni.calcappadmin.repo.ProjectRepo;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,17 +38,20 @@ public class ProjectsController {
         @SortDefault(sort = "title", direction = Sort.Direction.DESC),
         @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
     })Pageable pageable){
-
-        System.out.println(jwt.getAudience());
+        
+            System.out.println(jwt.getClaims());
+       ObjectId userId = jwt.getClaim("userId");
+       
         if(null != type && !"".equals(type)){
             return projectRepo.findByType(type, pageable);
         }else{
-            return projectRepo.findAll(pageable);
+            return projectRepo.findByUserId(userId, pageable);
         }
         
     }
 
     @GetMapping("/{id}")
+    @PostAuthorize("@owner.apply(returnObject, principal.claims['userId'])")
     public Project findById(@PathVariable("id") String id){
         return projectRepo.findById(id).orElseThrow(() -> new DocumentNotFoundException("Project not found"));
     }
